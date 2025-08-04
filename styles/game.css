@@ -1,8 +1,18 @@
+.main {
+  display:flex;
+  column-gap: 50px;
+  justify-content: center;
+}
 .board {
   display: grid;
-  grid-template-columns: 80px 80px 80px 80px;
+  grid-template-columns: 80px 80px 80px 80px 80px;
   row-gap: 20px;
   column-gap: 20px;
+  
+  
+}
+.scores {
+
 }
  button {
   width: 80px;

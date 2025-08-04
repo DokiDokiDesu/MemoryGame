@@ -1,6 +1,10 @@
 import { cards } from "../cards.js";
 
 let cardsNew = [];
+let selectedCards = [];
+let buttons = [];
+let matchedCards = [];
+let remainingLives = 5;
 
 function startGame() {
   setBoard();
@@ -27,10 +31,10 @@ function setBoard() {
      const img = document.createElement('img');
       img.src = cardsNew[i].img;
       img.alt = `card-${cardsNew[i].id}`;
-      button.appendChild(img);
 
+    button.appendChild(img);
     board.appendChild(button);
-
+    buttons.push(button);
   }
 }
 startGame();
@@ -46,8 +50,47 @@ function setUp() {
   }, 5000);
 }
 
-function playGame() {
 
+function playGame() {
+  buttons.forEach((button)=>{
+    button.addEventListener('click',()=>{
+
+      if(matchedCards.includes(button)) {
+        return;
+      }
+      selectedCards.push(button);
+
+      const img = button.querySelector('img');
+      img.src = cardsNew[parseInt(button.id.split('-')[1])].img;
+      img.alt = `card-${button.dataset.cardId}`;
+
+      isMatch();
+    });
+  });
+}
+
+function isMatch() {
+  if (selectedCards.length < 2) return;
+
+  const id1 = selectedCards[0].dataset.cardId;
+  const id2 = selectedCards[1].dataset.cardId;
+
+  if (id1 === id2) {
+    alert('eşleşti');
+    matchedCards.push(selectedCards[0],selectedCards[1]);
+    selectedCards = [];
+  } 
+  else if (id1 !== id2) {
+    console.log('eşleşmedi')
+    setTimeout(()=>{
+      selectedCards.forEach(btn => {
+        const img = btn.querySelector('img');
+        img.src = "icons/back-card.png";
+        img.alt = "back";
+      });
+      selectedCards = [];
+    },1000);
+  }
 }
 
 
