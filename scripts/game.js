@@ -6,9 +6,15 @@ let buttons = [];
 let matchedCards = [];
 let remainingLives = 5;
 
+const backButton = document.querySelector('.back-button');
+backButton.addEventListener('click',()=>{
+  window.location.href = "index.html";
+});
+
 function startGame() {
   setBoard();
   setUp();
+  displayRemainingLives();
 }
 
 function setBoard() {
@@ -37,7 +43,7 @@ function setBoard() {
     buttons.push(button);
   }
 }
-startGame();
+
 
 function setUp() {
    setTimeout(() => {
@@ -47,6 +53,7 @@ function setUp() {
       img.src = "icons/back-card.png"; // Kartların arka yüzünü göster
       img.alt = "back";
     }); playGame();
+        displayTimePassed();
   }, 5000);
 }
 
@@ -76,12 +83,21 @@ function isMatch() {
   const id2 = selectedCards[1].dataset.cardId;
 
   if (id1 === id2) {
-    alert('eşleşti');
+    
     matchedCards.push(selectedCards[0],selectedCards[1]);
     selectedCards = [];
   } 
   else if (id1 !== id2) {
-    console.log('eşleşmedi')
+    remainingLives--;
+  
+    if (remainingLives === 0) {
+      alert('game lost');
+      window.location.href = 'index.html';
+      return;
+    }
+    
+    displayRemainingLives();
+
     setTimeout(()=>{
       selectedCards.forEach(btn => {
         const img = btn.querySelector('img');
@@ -92,6 +108,22 @@ function isMatch() {
     },1000);
   }
 }
+function displayTimePassed() {
+  let timePassed = 0;
+
+  let intervalId = setInterval(()=>{
+    timePassed++;
+    const minute = Math.floor(timePassed / 60);
+    const passedSeconds = timePassed % 60;
+    document.querySelector('.timer').innerHTML = `Time passed : ${String(minute).padStart(2, '0')}:${String(passedSeconds).padStart(2, '0')}`;
+  },1000);
+}
+
+function displayRemainingLives() {
+  document.querySelector('.remaining-lives').innerHTML = `remaining lives : ${remainingLives}`;
+}
+
+startGame(); // index'e alınacak
 
 
 
