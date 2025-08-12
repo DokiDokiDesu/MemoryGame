@@ -48,15 +48,7 @@ if(scoreArray.length === 0) {
   });
 }
 function calculateTimeResult(seconds) {
-  let passedMins;
-  let passedSeconds;
-
-  passedMins = seconds / 60;
-  passedSeconds = seconds % 60;
-
-  if(passedMins < 1) {
-    passedMins = 0;
-  }
-
+  const passedMins = Math.floor(seconds / 60);
+  const passedSeconds = Math.floor(seconds % 60);
   return `${passedMins} mins ${passedSeconds} seconds`;
 }
