@@ -1,22 +1,47 @@
+body {
+  background-color: rgb(109, 208, 247);
+}
+
 .main {
   display:flex;
   column-gap: 50px;
   justify-content: center;
+  margin-left: 300px;
+}
+.countdown-start {
+  justify-self: center;
+  font-size: 40px;
+  margin-right: 20px;
 }
 .board {
   display: grid;
   grid-template-columns: 80px 80px 80px 80px 80px;
   row-gap: 20px;
   column-gap: 20px;
-  
-  
 }
 .scores {
-
+margin-top: 50px;
 }
  button {
   width: 80px;
   height: 100px;
+  cursor: pointer;
+  border-radius: 60px;
+  border:solid;
+  border-width: 1.5px;
+  border-color: rgb(2, 102, 133);
+}
+.back-button {
+  height: 50px;
+  border-radius:25px;
+  width:100px ; 
+  border-color: rgb(2, 74, 102);
+  border-width: 2px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  color: rgb(2, 74, 102);
+  background-color: white;
+  font-weight: 600;
 }
 img {
   height: max-content;
@@ -24,4 +49,7 @@ img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+h1 {
+  color: rgb(2, 74, 102);
 }

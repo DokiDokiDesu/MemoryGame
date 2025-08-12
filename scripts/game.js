@@ -1,5 +1,6 @@
 import { cards } from "../cards.js";
 
+
 let cardsNew = [];
 let selectedCards = [];
 let buttons = [];
@@ -45,17 +46,39 @@ function setBoard() {
 }
 
 
-function setUp() {
+/*function setUp() {
    setTimeout(() => {
     // Tüm kart resimlerini seç
     const images = document.querySelectorAll('.board button img');
     images.forEach(img => {
       img.src = "icons/back-card.png"; // Kartların arka yüzünü göster
       img.alt = "back";
-    }); playGame();
+    }); 
+        playGame(); 
         displayTimePassed();
   }, 5000);
 }
+  */
+ function setUp() {
+  let remainingSeconds = 5;
+ let intervalId = setInterval(()=>{
+
+    if(remainingSeconds === 0) {
+    const images = document.querySelectorAll('.board button img');
+    images.forEach(img => {
+    img.src = "icons/back-card.png"; // Kartların arka yüzünü göster
+    img.alt = "back";
+    }); 
+    playGame();
+    displayTimePassed();
+    clearInterval(intervalId);
+    }
+
+    document.querySelector('.countdown-start').innerHTML = `${remainingSeconds}`;
+    remainingSeconds--;
+
+  },1000);
+ }
 
 
 function playGame() {
@@ -115,14 +138,13 @@ function displayTimePassed() {
     timePassed++;
     const minute = Math.floor(timePassed / 60);
     const passedSeconds = timePassed % 60;
-    document.querySelector('.timer').innerHTML = `Time passed : ${String(minute).padStart(2, '0')}:${String(passedSeconds).padStart(2, '0')}`;
+    document.querySelector('.countdown-start').innerHTML = `Time passed : ${String(minute).padStart(2, '0')}:${String(passedSeconds).padStart(2, '0')}`;
   },1000);
 }
 
 function displayRemainingLives() {
   document.querySelector('.remaining-lives').innerHTML = `remaining lives : ${remainingLives}`;
 }
-
 startGame(); // index'e alınacak
 
 
