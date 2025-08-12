@@ -1,4 +1,5 @@
 import { cards } from "../cards.js";
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 
 
 let cardsNew = [];
@@ -6,6 +7,8 @@ let selectedCards = [];
 let buttons = [];
 let matchedCards = [];
 let remainingLives = 5;
+const now = dayjs();
+let timePassed = 0;
 
 const backButton = document.querySelector('.back-button');
 backButton.addEventListener('click',()=>{
@@ -44,23 +47,8 @@ function setBoard() {
     buttons.push(button);
   }
 }
-
-
-/*function setUp() {
-   setTimeout(() => {
-    // Tüm kart resimlerini seç
-    const images = document.querySelectorAll('.board button img');
-    images.forEach(img => {
-      img.src = "icons/back-card.png"; // Kartların arka yüzünü göster
-      img.alt = "back";
-    }); 
-        playGame(); 
-        displayTimePassed();
-  }, 5000);
-}
-  */
  function setUp() {
-  let remainingSeconds = 5;
+  let remainingSeconds = 10;
  let intervalId = setInterval(()=>{
 
     if(remainingSeconds === 0) {
@@ -108,6 +96,14 @@ function isMatch() {
   if (id1 === id2) {
     
     matchedCards.push(selectedCards[0],selectedCards[1]);
+
+    if(matchedCards.length === 20) {
+      alert('game won');
+      updateScoreRecord('win',matchedCards.length,timePassed,now.format('YYYY-MM-DD HH:mm'));
+      window.location.href = 'index.html';
+      return;
+    }
+
     selectedCards = [];
   } 
   else if (id1 !== id2) {
@@ -115,6 +111,7 @@ function isMatch() {
   
     if (remainingLives === 0) {
       alert('game lost');
+      updateScoreRecord('lose',matchedCards.length,timePassed,now.format('YYYY-MM-DD HH:mm'));
       window.location.href = 'index.html';
       return;
     }
@@ -132,7 +129,7 @@ function isMatch() {
   }
 }
 function displayTimePassed() {
-  let timePassed = 0;
+  timePassed = 0;
 
   let intervalId = setInterval(()=>{
     timePassed++;
@@ -144,6 +141,23 @@ function displayTimePassed() {
 
 function displayRemainingLives() {
   document.querySelector('.remaining-lives').innerHTML = `remaining lives : ${remainingLives}`;
+}
+
+function updateScoreRecord(result,cardsMatched, compTime,date) {
+ 
+  let newScoreEntry = {
+    result : result,cardsMatched : cardsMatched, compTime : compTime, date : date
+  }
+  let scoreArray = JSON.parse(localStorage.getItem('scoreArray'));
+
+  if(!scoreArray) {
+    let scoreArray = [];
+    scoreArray.push(newScoreEntry);
+    localStorage.setItem('scoreArray',JSON.stringify(scoreArray));
+    return;
+  }
+  scoreArray.push(newScoreEntry);
+  localStorage.setItem('scoreArray',JSON.stringify(scoreArray));
 }
 startGame(); // index'e alınacak
 
