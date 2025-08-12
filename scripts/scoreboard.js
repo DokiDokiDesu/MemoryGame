@@ -1,9 +1,17 @@
 const backButton = document.querySelector('.back-button');
+const resetButton = document.querySelector('.reset-button');
 
-let scoreArray = JSON.parse(localStorage.getItem('scoreArray'));
+let scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
 
 backButton.addEventListener('click',()=>{
   window.location.href = "index.html";
+});
+
+resetButton.addEventListener('click',()=>{
+  if (confirm("Tüm skorları silmek istediğinize emin misiniz?")) {
+    localStorage.clear();
+    location.reload(); // Sayfayı yenile, skorlar temizlensin
+  }
 });
 
 const scoreScreen = document.querySelector('.score-screen');
