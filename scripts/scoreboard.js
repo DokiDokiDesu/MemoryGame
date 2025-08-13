@@ -23,26 +23,27 @@ if(scoreArray.length === 0) {
   scoreArray.reverse().forEach(score => {
       const entry = document.createElement('div');
   entry.className = "score-entry";
+
+  const resultColor = score.result === "win" ? "green" : "red";
+
   entry.innerHTML = `
-     <div class="result-div">
-            <p>result</p>
-            <p>${score.result}</p>
-          </div>
-
-          <div class="cards-matched-div">
-            <p>cards matched</p>
-            <p>${score.cardsMatched}</p>
-          </div>
-          
-          <div class="comp-time-div">
-            <p>compilation time</p>
-            <p>${calculateTimeResult(score.compTime)}</p>
-          </div>
-
-          <div class="date-div">
-            <p>date</p>
-            <p>${score.date}</p>
-          </div>
+    <div class="result-div">
+      <p>result</p>
+      <p style="color:${resultColor}; font-weight:bold;">${score.result}</p>
+    </div>
+    <div class="cards-matched-div">
+      <p>cards matched</p>
+      <p>${score.cardsMatched}</p>
+    </div>
+    <div class="comp-time-div">
+      <p>compilation time</p>
+      <p>${calculateTimeResult(score.compTime)}</p>
+    </div>
+    <div class="date-div">
+      <p>date</p>
+      <p>${score.date}</p>
+    </div>
+  
   `;
     scoreScreen.appendChild(entry);
   });
