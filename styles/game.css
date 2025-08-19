@@ -31,6 +31,7 @@ margin-top: 50px;
   border-width: 1.5px;
   border-color: rgb(2, 102, 133);
 }
+
 .back-button {
   height: 50px;
   border-radius:25px;
@@ -42,6 +43,12 @@ margin-top: 50px;
   color: rgb(2, 74, 102);
   background-color: white;
   font-weight: 600;
+  transition: 0.3s;
+}
+.back-button:hover {
+  background-color:rgb(2, 74, 102) ;
+  color: white;
+ 
 }
 img {
   height: max-content;

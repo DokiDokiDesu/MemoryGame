@@ -10,7 +10,8 @@ body{
   row-gap: 20px;
   height:625px;
   margin: auto;
- 
+  border-radius: 50px;
+
   
 
 }
@@ -32,4 +33,11 @@ button {
   color:rgb(2, 101, 134) ;
   font-weight:600 ;
   cursor: pointer;
+  border-style: solid;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: rgb(4, 112, 148);
+  color: white;
+  border-color:rgb(4, 112, 148) ;
 }
